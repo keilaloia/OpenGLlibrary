@@ -1,23 +1,48 @@
 #include "graphics\Context.h"
-#include <iostream>
+#include "graphics\Vertex.h"
+#include "graphics\RenderObjects.h"
+#include "graphics\draw.h"
+
 int main()
 {
 	Context context;
-	context.bInitialize();
-	double x = 0;
-	double y = 0;
-	while (context.bUpdate())//game loop
+	context.bInitialize(800, 600);
+	// Initialize resources here!    
+
+	Vertex verts[3] = 
+	{ 
+	{ { -.5f,-.5f, 0, 1 }, {1,0,0,1} },
+	{ { .5f,-.5f, 0, 1 },{0,1,0,1} },
+	{ { 0, .5f, 0, 1 },{0,0,1,1} }
+	};
+
+	unsigned idxs[3] = { 0,1,2 };
+
+	Geometry g = makeGeometry(verts, 3, idxs, 3);
+
+	const char* vsource =
+		"#version 450\n"
+		"layout(location = 0) in vec4 position;\n"
+		"layout(location = 1) in vec4 color;\n"
+		"out vec4 vColor;\n"
+		"void main () { gl_Position = position; vColor = color; }\n";
+
+	const char* fsource =
+		"#version 450\n"
+		"out vec4 outColor;\n"
+		"in vec4 vColor;\n"
+		"void main () { outColor = vColor; }\n";
+
+	Shader s = makeShader(vsource, fsource);
+
+	Framebuffer f = { 0, 800, 600 };
+	while (context.bUpdate()) // The game loop
 	{
-		std::cout << " Q is pushed" << context.bgetkey('Q') << std::endl;
-		std::cout << "mouse button 0 was pushed" << context.bgetMouseButton(0) << std::endl;
-		context.getMousePosition(x, y);
-
-		std::cout << "X" << x << std::endl;
-		std::cout << "y" << y << std::endl;
-		std::cout << "time is:" << context.dgetTime() << std::endl;
-
+		s0_draw(f, s, g);
 	}
+
+	// Free resources here!
+
 	context.bTerminate();
 	return 0;
 }
-
