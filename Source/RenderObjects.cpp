@@ -21,6 +21,7 @@ Geometry makeGeometry(const Vertex *vertices, size_t vsize,
 	//initialize all of our buffers
 	glBufferData(GL_ARRAY_BUFFER,
 		vsize*sizeof(Vertex), vertices, GL_STATIC_DRAW);
+
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 		isize * sizeof(unsigned), indices, GL_STATIC_DRAW);
 
@@ -31,6 +32,10 @@ Geometry makeGeometry(const Vertex *vertices, size_t vsize,
 	// color
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)16);
+
+	//uv
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)32);
 
 	//unbind the variable
 	glBindVertexArray(0);
@@ -126,3 +131,35 @@ void freeShader(Shader &s)
 	s = { 0 };
 }
 
+
+Texture makeTexture(unsigned w, unsigned h, unsigned c, const unsigned char *pixels)
+{
+	Texture retval = { 0 };
+	
+	unsigned f = 0;
+	switch (c)
+	{
+	case 1: f = GL_RED; break;
+	case 2: f = GL_RG; break;
+	case 3: f = GL_RGB; break;
+	case 4: f = GL_RGBA; break;
+	}
+	
+	glGenTextures(1, &retval.handle);
+	glBindTexture(GL_TEXTURE_2D, retval.handle);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, f, w, h, 0, f, GL_UNSIGNED_BYTE, pixels);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	return retval;
+}
+
+void freeTexture(Texture &t)
+{
+	glDeleteTextures(1, &t.handle);
+	t = { 0 };
+}

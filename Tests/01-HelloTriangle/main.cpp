@@ -2,6 +2,7 @@
 #include "graphics\Vertex.h"
 #include "graphics\RenderObjects.h"
 #include "graphics\draw.h"
+#include "graphics\\genShape.h"
 
 int main()
 {
@@ -19,7 +20,7 @@ int main()
 	unsigned idxs[3] = { 0,1,2 };
 
 	Geometry g = makeGeometry(verts, 3, idxs, 3);
-
+	Geometry gt = makeCheckerboard(2, .25f);
 	const char* vsource =
 		"#version 450\n"
 		"layout(location = 0) in vec4 position;\n"

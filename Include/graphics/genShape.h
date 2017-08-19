@@ -4,3 +4,4 @@
 struct Geometry;
 
 Geometry makeNGon(size_t sides, float r);
+Geometry makeCheckerboard(int dim, float size);

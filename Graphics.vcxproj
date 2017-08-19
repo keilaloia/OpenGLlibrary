@@ -132,6 +132,7 @@
     <ClCompile Include="Source\Context.cpp" />
     <ClCompile Include="Source\draw.cpp" />
     <ClCompile Include="Source\RenderObjects.cpp" />
+    <ClCompile Include="Tests\01-HelloTriangle\genShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Context.h" />

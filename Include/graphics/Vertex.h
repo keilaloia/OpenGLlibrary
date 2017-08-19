@@ -6,4 +6,5 @@ struct Vertex
 {
 	glm::vec4 position; // 0, 4 floats (4 bytes) = 16 bytes
 	glm::vec4 color;	// 16
+	glm::bvec2 uv;
 };
