@@ -46,3 +46,23 @@ void setUniform(const Shader &s, int location, const Texture &value, unsigned sl
 
 	glProgramUniform1i(s.handle, location, slot);
 }
+
+#include "glm\ext.hpp"
+
+void setUniform(const Shader &s, int location, const glm::mat4 &val)
+{
+	glProgramUniformMatrix4fv(s.handle, location, 1, 0, glm::value_ptr(val));
+}
+
+void setFlags(int flags)
+{
+	if (flags & RenderFlag::DEPTH) glEnable(GL_DEPTH_TEST);
+	else glDisable(GL_DEPTH_TEST);
+}
+
+void clearFramebuffer(const Framebuffer & r, bool color, bool depth)
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, r.handle);
+	glClear(GL_COLOR_BUFFER_BIT * color | GL_DEPTH_BUFFER_BIT * depth);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}

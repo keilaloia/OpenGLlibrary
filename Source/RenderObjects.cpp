@@ -34,8 +34,8 @@ Geometry makeGeometry(const Vertex *vertices, size_t vsize,
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)16);
 
 	//uv
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)32);
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)32);
 
 	//unbind the variable
 	glBindVertexArray(0);
@@ -69,6 +69,7 @@ Shader makeShader(const char *vsource, const char *fsource)
 	glShaderSource(fs, 1, &fsource, 0);
 
 	glCompileShader(vs);
+	glCompileShader(fs);
 	//write ifdef debug here
 #ifdef _DEBUG
 	GLint success = GL_FALSE;
@@ -83,7 +84,6 @@ Shader makeShader(const char *vsource, const char *fsource)
 		delete[] log;
 	}
 
-
 	success = GL_FALSE;
 	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
 	if (success == GL_FALSE)
@@ -97,7 +97,7 @@ Shader makeShader(const char *vsource, const char *fsource)
 	}
 #endif _DEBUG
 
-	glCompileShader(fs);
+
 
 	glAttachShader(retval.handle, vs);
 	glAttachShader(retval.handle, fs);
