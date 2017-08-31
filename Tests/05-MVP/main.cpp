@@ -30,7 +30,7 @@ void main()
 		int loc = 0, slot = 0;
 		//setUniform(lambert, loc, tslot, cam_view, cam_proj, go_model, ss_diffuse);
 
-		s0_draw(screen, lambert, ss_geo);
+		//s0_draw(screen, lambert, ss_geo);
 		// and uniforms
 		// draw and update stuff goes
 

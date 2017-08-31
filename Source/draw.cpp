@@ -66,3 +66,17 @@ void clearFramebuffer(const Framebuffer & r, bool color, bool depth)
 	glClear(GL_COLOR_BUFFER_BIT * color | GL_DEPTH_BUFFER_BIT * depth);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
+
+
+
+
+void setUniform(const Shader &s, int location, const glm::vec3 &val)
+{
+	glProgramUniform3fv(s.handle, location, 1, glm::value_ptr(val));
+}
+
+
+void setUniform(const Shader &s, int location, const glm::vec4 &val)
+{
+	glProgramUniform4fv(s.handle, location, 1, glm::value_ptr(val));
+}

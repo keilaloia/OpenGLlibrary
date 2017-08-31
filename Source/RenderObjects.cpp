@@ -1,7 +1,36 @@
+#define GLM_FORCE_SWIZZLE
 #include "glinc.h"
 #include "graphics\RenderObjects.h"
 #include "graphics\Vertex.h"
 #include <iostream>
+
+glm::vec4 calcTangent(const Vertex &v0, const Vertex &v1, const Vertex &v2)
+{
+	glm::vec4 p1 = v1.position - v0.position;
+	glm::vec4 p2 = v2.position - v0.position;
+
+	glm::vec2 t1 = v1.texCoord - v0.texCoord;
+	glm::vec2 t2 = v2.texCoord - v0.texCoord;
+
+	return glm::normalize((p1*t2.y - p2*t1.y) / (t1.x*t2.y - t1.y*t2.x));
+	//UV.x will follow the tangents
+	//UV.y will follow the bitangents
+}
+
+void solveTangents(Vertex *v, size_t vsize,
+							 const unsigned *idx, size_t isize)
+{
+	for (int i = 0; i < isize; i += 3)
+	{
+		glm::vec4 T = calcTangent(v[idx[i]], v[idx[i + 1]], v[idx[i + 2]]);
+
+		for (int j = 0; j < 3; ++j)
+			v[idx[i + j]].tangent = glm::normalize(T + v[idx[i + j]].tangent);
+	}
+	
+	for (int i = 0; i < vsize; ++i)
+		v[i].bitangent = glm::vec4(glm::cross(v[i].normal.xyz(), v[i].tangent.xyz()), 0);
+}
 
 Geometry makeGeometry(const Vertex *vertices, size_t vsize,
 	const unsigned *indices, size_t isize)
@@ -25,17 +54,26 @@ Geometry makeGeometry(const Vertex *vertices, size_t vsize,
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER,
 		isize * sizeof(unsigned), indices, GL_STATIC_DRAW);
 
-	// position
-	glEnableVertexAttribArray(0);
+	
+	glEnableVertexAttribArray(0);//position attribute
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
-	// color
-	glEnableVertexAttribArray(1);
+	
+	glEnableVertexAttribArray(1);//color attribute 
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)16);
 
-	//uv
-	glEnableVertexAttribArray(2);
+	
+	glEnableVertexAttribArray(2); //texcoord
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)32);
+
+	glEnableVertexAttribArray(3); //normal
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)40);
+
+	glEnableVertexAttribArray(4); //tangent
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)56);
+
+	glEnableVertexAttribArray(5); //bitangent
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)72);
 
 	//unbind the variable
 	glBindVertexArray(0);

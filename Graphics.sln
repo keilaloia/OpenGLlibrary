@@ -24,6 +24,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shader", "resources\shader\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05-MVP", "Tests\05-MVP\05-MVP.vcxproj", "{84240E5D-F025-491E-BB1E-CE0E096088AC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07-Materials", "Tests\07-Materials\07-Materials.vcxproj", "{A49E4102-473C-4551-906E-EBEE0BD709DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D140C822-AB38-4656-90F7-A648D6870CF7} = {D140C822-AB38-4656-90F7-A648D6870CF7}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -80,6 +85,14 @@ Global
 		{84240E5D-F025-491E-BB1E-CE0E096088AC}.Release|x64.Build.0 = Release|x64
 		{84240E5D-F025-491E-BB1E-CE0E096088AC}.Release|x86.ActiveCfg = Release|Win32
 		{84240E5D-F025-491E-BB1E-CE0E096088AC}.Release|x86.Build.0 = Release|Win32
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Debug|x64.ActiveCfg = Debug|x64
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Debug|x64.Build.0 = Debug|x64
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Debug|x86.ActiveCfg = Debug|Win32
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Debug|x86.Build.0 = Debug|Win32
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Release|x64.ActiveCfg = Release|x64
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Release|x64.Build.0 = Release|x64
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Release|x86.ActiveCfg = Release|Win32
+		{A49E4102-473C-4551-906E-EBEE0BD709DF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,6 +16,9 @@ void setUniform(const Shader &s, int location, int key);
 void setUniform(const Shader &s, int location, int value);
 void setUniform(const Shader &s, int location, float value);
 
+void setUniform(const Shader &s, int location, const glm::vec3 &val);
+void setUniform(const Shader &s, int location, const glm::vec4 &val);
+
 void setUniform(const Shader &s, int location, const Texture &value, unsigned slot);
 
 void setUniform(const Shader &s, int location, const glm::mat4 &val);
