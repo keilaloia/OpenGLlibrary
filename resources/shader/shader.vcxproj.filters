@@ -31,5 +31,11 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="standard.vert" />
+    <None Include="quad.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="quad.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
