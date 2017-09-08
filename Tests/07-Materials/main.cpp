@@ -3,6 +3,7 @@
 #include "graphics\Vertex.h"
 #include "graphics\Context.h"
 #include "graphics\draw.h"
+#include "graphics\GameObject.h"
 
 #include "glm\ext.hpp"
 
@@ -35,22 +36,33 @@ void main()
 
 	//////////////////////////////////////////
 	//model data 
-	Geometry  ss_geo = loadGeometry("../../resources/models/soulspear.obj");
-	glm::mat4 ss_model;
-	
-	Texture ss_normal = loadTexture("../../resources/textures/soulspear_normal.tga");
-	Texture ss_diffuse = loadTexture("../../resources/textures/soulspear_diffuse.tga");
-	Texture ss_specular = loadTexture("../../resources/textures/soulspear_specular.tga");
-	float ss_gloss = 4.0f;
+	SpecGloss sceneObject[2];
 
+	sceneObject[0].geo =  loadGeometry("../../resources/models/soulspear.obj");
+	sceneObject[0].model;
 	
+	sceneObject[0].normal = loadTexture("../../resources/textures/soulspear_normal.tga");
+	sceneObject[0].diffuse = loadTexture("../../resources/textures/soulspear_diffuse.tga");
+	sceneObject[0].specular = loadTexture("../../resources/textures/soulspear_specular.tga");
+	sceneObject[0].gloss = 4.0f;
+
+
+	sceneObject[1].geo = loadGeometry("../../resources/models/soulspear.obj");
+	sceneObject[1].model;
+
+	sceneObject[1].normal = loadTexture("../../resources/textures/soulspear_normal.tga");
+	sceneObject[1].diffuse = loadTexture("../../resources/textures/soulspear_diffuse.tga");
+	sceneObject[1].specular = loadTexture("../../resources/textures/soulspear_specular.tga");
+	sceneObject[1].gloss = 4.0f;
+
 	///////////////////////////////////////////
 	//camera
-	glm::mat4 cam_view = glm::lookAt(glm::vec3(0, 2, 3),
+	Camera cam;
+	cam.view = glm::lookAt(glm::vec3(0, 2, 3),
 									 glm::vec3(0, 2, 0),
 									 glm::vec3(0, 1, 0));
 
-	glm::mat4 cam_proj = glm::perspective(45.f, 800.f / 600.f, 0.01f, 100.f);
+	cam.proj = glm::perspective(45.f, 800.f / 600.f, 0.01f, 100.f);
 
 
 	///////////////////////////////////////////
@@ -74,29 +86,43 @@ void main()
 	while (context.bUpdate())
 	{
 		float time = context.dgetTime();
-		ss_model = glm::rotate(time, glm::vec3(0, 1, 0));
+		sceneObject[0].model = glm::rotate(time, glm::vec3(0, 1, 0));
 
 		
 		setFlags(RenderFlag::DEPTH);
 		clearFramebuffer(fBuffer);
 		int loc = 0, slot = 0;
 
-		setUniform(standard, 0, cam_proj);
-		setUniform(standard, 1, cam_view);
-		setUniform(standard, 2, ss_model);
-		setUniform(standard, 3, ss_diffuse, 0);
-		setUniform(standard, 4, ss_specular, 1);
-		setUniform(standard, 5, ss_normal, 2);
-		setUniform(standard, 6, ss_gloss);
+		setUniform(standard, 0, cam.proj);
+		setUniform(standard, 1, cam.view);
+		setUniform(standard, 2, sceneObject[0].model);
+		setUniform(standard, 3, sceneObject[0].diffuse, 0);
+		setUniform(standard, 4, sceneObject[0].specular, 1);
+		setUniform(standard, 5, sceneObject[0].normal, 2);
+		setUniform(standard, 6, sceneObject[0].gloss);
+		setUniform(standard, 7, l_Dir);
+		setUniform(standard, 8, l_Color);
+		setUniform(standard, 9, l_intensity);
+		setUniform(standard, 10, l_ambient);
+		setUniform(standard, 11, l_type);
+		s0_draw(fBuffer, standard, sceneObject[0].geo);
+
+		setUniform(standard, 0, cam.proj);
+		setUniform(standard, 1, cam.view);
+		setUniform(standard, 2, sceneObject[1].model);
+		setUniform(standard, 3, sceneObject[1].diffuse, 0);
+		setUniform(standard, 4, sceneObject[1].specular, 1);
+		setUniform(standard, 5, sceneObject[1].normal, 2);
+		setUniform(standard, 6, sceneObject[1].gloss);
 		setUniform(standard, 7, l_Dir);
 		setUniform(standard, 8, l_Color);
 		setUniform(standard, 9, l_intensity);
 		setUniform(standard, 10, l_ambient);
 		setUniform(standard, 11, l_type);
 
-	
 
-		s0_draw(fBuffer, standard, ss_geo);
+
+		s0_draw(fBuffer, standard, sceneObject[1].geo);
 
 
 

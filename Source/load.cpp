@@ -8,7 +8,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "STB\stb_image.h"
-#include "OBJ\tiny_obj_loader.h"
+#include "obj\tiny_obj_loader.h"
 
 Texture loadTexture(const char *path)
 {
@@ -51,24 +51,36 @@ Texture loadTexture(const char *path)
 //
 //}
 
+
+
+
+
 Shader loadShader(const char *v_path, const char *f_path)
 {
 	Shader retval = { 0 };
 
-	std::ifstream v(v_path);
+	std::ifstream v;
+	v.open(v_path);
+
+	assert(v.good() && "not good");
+
 	std::string vstr;
-	v.seekg(0, std::ios::end);
+	v.seekg(0, v.end);
+	int val = v.tellg();
 	vstr.reserve(v.tellg());
-	v.seekg(0, std::ios::beg);
+	v.seekg(0, v.beg);
 
 	vstr.assign((std::istreambuf_iterator<char>(v)),
 		std::istreambuf_iterator<char>());
 
 	std::ifstream f(f_path);
+
+	assert(f.good() && "not good");
+
 	std::string fstr;
-	f.seekg(0, std::ios::end);
+	f.seekg(0, f.end);
 	fstr.reserve(f.tellg());
-	f.seekg(0, std::ios::beg);
+	f.seekg(0, f.beg);
 
 	fstr.assign((std::istreambuf_iterator<char>(f)),
 		std::istreambuf_iterator<char>());
@@ -82,16 +94,14 @@ Shader loadShader(const char *v_path, const char *f_path)
 Geometry loadGeometry(const char *path)
 {
 	Geometry retval = { 0,0,0,0 };
-
-	//output parameters for TinyOBJ to work
-	tinyobj::attrib_t attrib;
-	std::vector<tinyobj::shape_t> shapes;
+	tinyobj::attrib_t attrib;				// Vertex Data is stored.
+	std::vector<tinyobj::shape_t> shapes;	// Triangular data, indices.
 	std::vector<tinyobj::material_t> materials;
 	std::string err;
 
 	tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path);
 
-	//how to approriately loop through object vertices
+	/////////////////////////////////////////////////////////////////
 	size_t isize = shapes[0].mesh.indices.size();
 	size_t *indices = new unsigned[isize];
 
@@ -106,17 +116,18 @@ Geometry loadGeometry(const char *path)
 		int ni = shapes[0].mesh.indices[i].normal_index;
 		int ti = shapes[0].mesh.indices[i].texcoord_index;
 
-		const float *p = &attrib.vertices[pi * 3];
-		const float *n = &attrib.normals[ni * 3];
-		const float *t = &attrib.texcoords[ti * 2];
+		const float *p = &attrib.vertices[pi * 3];  // 3x
+		const float *n = &attrib.normals[ni * 3];   // 3x
+		const float *t = &attrib.texcoords[ti * 2]; // 2x
 
-		verts[i].position = { p[0],p[1],p[2], 1 };
-		verts[i].texCoord = { t[0], t[1] };
-		verts[i].normal = { n[0],n[1],n[2], 0 };
-
+		verts[i].position = { p[0],p[1],p[2],1 };
+		verts[i].texCoord = { t[0],t[1] };
+		verts[i].normal = { n[0],n[1],n[2],0 };
 	}
+	///////////////////////////////////////////////////////////////////
+
 	solveTangents(verts, vsize, indices, isize);
-	
+
 	retval = makeGeometry(verts, vsize, indices, isize);
 
 	delete[] verts;

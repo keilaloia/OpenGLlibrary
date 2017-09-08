@@ -110,10 +110,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="cpass.frag" />
+    <None Include="cpass.vert" />
+    <None Include="direct.frag" />
+    <None Include="direct.vert" />
+    <None Include="gpass.frag" />
+    <None Include="gpass.vert" />
+    <None Include="IpassD.frag" />
+    <None Include="IpassD.vert" />
+    <None Include="lambertP.frag" />
+    <None Include="lambertP.vert" />
     <None Include="mvplite.frag" />
     <None Include="mvplite.vert" />
     <None Include="quad.frag" />
     <None Include="quad.vert" />
+    <None Include="shadow.frag" />
+    <None Include="shadow.vert" />
     <None Include="standard.frag" />
     <None Include="standard.vert" />
     <None Include="test.frag" />
