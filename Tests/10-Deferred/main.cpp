@@ -101,7 +101,7 @@ void main()
 		loc = slot = 0;
 		clearFramebuffer(screen);
 		setUniforms(cpass, loc, slot, gbuffer.targets[0], Ibuffer.targets[0]);
-		s0_draw(screen, cpass, quad);
+ 		s0_draw(screen, cpass, quad);
 	}
 	context.bTerminate();
 }

@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{91F99188-C4D8-4D73-8DF8-870F097754CD}</ProjectGuid>
-    <RootNamespace>shader</RootNamespace>
+    <ProjectGuid>{FC36214D-A166-4C4F-9060-572828936C9D}</ProjectGuid>
+    <RootNamespace>AssessmentProject</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +74,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>graphics.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -90,10 +95,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>graphics.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -110,28 +118,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="Assesment.frag" />
-    <None Include="Assesment.vert" />
-    <None Include="cpass.frag" />
-    <None Include="cpass.vert" />
-    <None Include="direct.frag" />
-    <None Include="direct.vert" />
-    <None Include="gpass.frag" />
-    <None Include="gpass.vert" />
-    <None Include="IpassD.frag" />
-    <None Include="IpassD.vert" />
-    <None Include="lambertP.frag" />
-    <None Include="lambertP.vert" />
-    <None Include="mvplite.frag" />
-    <None Include="mvplite.vert" />
-    <None Include="quad.frag" />
-    <None Include="quad.vert" />
-    <None Include="shadow.frag" />
-    <None Include="shadow.vert" />
-    <None Include="standard.frag" />
-    <None Include="standard.vert" />
-    <None Include="test.frag" />
-    <None Include="test.vert" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Particle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

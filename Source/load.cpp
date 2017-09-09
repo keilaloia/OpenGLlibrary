@@ -75,7 +75,7 @@ Shader loadShader(const char *v_path, const char *f_path)
 
 	std::ifstream f(f_path);
 
-	assert(f.good() && "not good");
+ 	assert(f.good() && "not good");
 
 	std::string fstr;
 	f.seekg(0, f.end);
