@@ -4,6 +4,7 @@ struct Geometry;
 struct Shader;
 struct Framebuffer;
 struct Texture;
+class ParticleSystem;
 #include "glm\fwd.hpp"
 enum RenderFlag
 {
@@ -15,6 +16,7 @@ enum RenderFlag
 void setFlags(int flags);
 
 void s0_draw(const Framebuffer &f, const Shader &s, const Geometry &g);
+void s0_draw(const Framebuffer &f, const Shader &s, const ParticleSystem &ps);
 
 void setUniform(const Shader &s, int location, float value, int color); 
 void setUniform(const Shader &s, int location, int key);

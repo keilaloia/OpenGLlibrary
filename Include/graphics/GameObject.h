@@ -54,9 +54,47 @@ struct DirectionalLight
 	float intensity; // 3
 };
 
+// just data!
+struct Particle
+{
+	glm::vec3 position;
+	glm::vec3 velocity;
+	glm::vec4 color;
+	float size;
+	float lifetime;
+	float get_random(float min, float max) {
+
+		return (max - min) * ((float)rand() / (float)RAND_MAX) + min;
+	}
+	glm::vec3 RandomVec = { get_random(-1.0f, 1.0f),get_random(-1.0f, 1.0f),get_random(-1.0f, 1.0f) };
+
+
+};
+
+class ParticleSystem
+{
+
+
+	float spawnTimer;
+	float defaultTimer;
+	float defaultSize;
+	float defaultLifetime;
+	float CountDown = 1;
+
+public:
+	const static unsigned int PARTICLE_COUNT = 1000;
+	Particle particles[PARTICLE_COUNT];
+	Geometry particleGeo;
+
+
+	void init(float size, float lifetime, float timer);
+	void update(float deltatime);
+};
+
 namespace __internal
 {
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const Camera &val);
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const SpecGloss &val);
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const DirectionalLight &val);
+	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const Particle &val);
 }

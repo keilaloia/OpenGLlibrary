@@ -58,7 +58,7 @@ void main()
 	dlights[0].intensity = 1;
 	dlights[0].color = glm::vec4(1, 1, 0, 1);
 	dlights[0].direction = glm::vec3(1, 0, 0);
-
+	//memes
 	dlights[1].range = 10;
 	dlights[1].intensity = 1;
 	dlights[1].color = glm::vec4(0, 0, 1, 1);
