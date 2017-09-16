@@ -8,6 +8,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include "utility.h"
 
 ////////////////////////////
 ///GL CHEAT SHEAT
@@ -21,6 +22,11 @@
 
 void main()
 {
+	for (int i = 0; i < 1000; ++i)
+	{
+		std::cout << rand(0.0f, 1.0f) << std::endl;
+	}
+
 	Context context;
 	context.bInitialize(1280, 720);
 
@@ -42,7 +48,7 @@ void main()
 	Framebuffer screen = { 0,1280,720 };
 
 	ParticleSystem particleSystem;
-	particleSystem.init(0.2f, 3.0f, 0.1f);
+	particleSystem.init(0.2f, 5.0f, 0.1f);
 	particleSystem.particleGeo = quad;// makeGeometry(vert, 1, idx, 1);
 
 	float prevTime = context.dgetTime();

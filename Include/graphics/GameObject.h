@@ -59,16 +59,14 @@ struct Particle
 {
 	glm::vec3 position;
 	glm::vec3 velocity;
-	glm::vec4 color;
+	glm::vec4 startColor;
+	glm::vec4 currentColor;
+	glm::vec4 targetColor;
 	float size;
-	float lifetime;
-	float get_random(float min, float max) {
 
-		return (max - min) * ((float)rand() / (float)RAND_MAX) + min;
-	}
-	glm::vec3 RandomVec = { get_random(-1.0f, 1.0f),get_random(-1.0f, 1.0f),get_random(-1.0f, 1.0f) };
-
-
+	float lifespan;	// total time alive
+	float lifetime;	// time remaining
+	float lastChangeTime;
 };
 
 class ParticleSystem
@@ -97,4 +95,5 @@ namespace __internal
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const SpecGloss &val);
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const DirectionalLight &val);
 	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const Particle &val);
+	
 }

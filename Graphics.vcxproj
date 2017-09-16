@@ -145,6 +145,7 @@
     <ClInclude Include="Include\graphics\RenderObjects.h" />
     <ClInclude Include="Include\graphics\Vertex.h" />
     <ClInclude Include="Include\graphics\load.h" />
+    <ClInclude Include="Include\utility.h" />
     <ClInclude Include="Source\glinc.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

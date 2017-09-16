@@ -30,5 +30,5 @@ void __internal::t_setUniform(const Shader & s, int & loc_io, int & tex_io, cons
 void __internal::t_setUniform(const Shader & s, int & loc_io, int & tex_io, const Particle & val)
 {
 	__internal::t_setUniform(s, loc_io, tex_io, glm::translate(val.position) * glm::scale(glm::vec3(val.size, val.size, val.size)));
-	__internal::t_setUniform(s, loc_io, tex_io, val.color);
+	__internal::t_setUniform(s, loc_io, tex_io, val.currentColor);
 }
